@@ -1,0 +1,43 @@
+IBI BIGUAÇU — PRIMEIRA VERSÃO DO APLICATIVO
+
+INÍCIO
+1. Crie um projeto Supabase exclusivo da igreja (não use o projeto do retiro).
+2. Supabase > SQL Editor > New query: cole o conteúdo do arquivo supabase.sql e execute.
+3. Supabase > Project Settings / Connect > copie Project URL e chave PUBLICÁVEL (publishable key ou anon).
+4. Edite config.js e cole URL + chave pública. Nunca use secret/service_role.
+5. Supabase > Authentication > URL Configuration: defina Site URL como URL final do GitHub Pages e adicione a URL em Redirect URLs.
+6. GitHub: crie um repositório público novo chamado ibi-biguacu-app.
+7. Adicione os arquivos index.html, style.css, app.js, config.js, manifest.webmanifest, sw.js e a pasta icons/ à RAIZ. Não publique o arquivo supabase.sql no repositório se não quiser.
+8. No repositório > Settings > Pages > Source: Deploy from a branch > main > /(root) > Save.
+9. Acesse https://SEU-USUARIO.github.io/ibi-biguacu-app/
+10. Crie sua conta na área de membros; se exigido, confirme o e-mail. Abra Supabase > Authentication > Users e copie seu User UID.
+11. No SQL Editor execute:
+    update public.profiles set role='admin', approved=true where id='COLE-SEU-UID';
+12. Saia e entre de novo no app. Você verá o painel para criar eventos, avisos e aprovar membros.
+13. Supabase > Integrations > Cron > Create job, tipo SQL, agenda "0 12 * * *" (UTC), comando:
+    select public.deliver_birthdays();
+    O Cron executa diariamente por volta das 9h em Biguaçu, sem compensar interrupções.
+
+INSTALAÇÃO NO CELULAR
+Android: Chrome > abrir URL > menu ⋮ > Instalar app / Adicionar à tela inicial (conforme suporte).
+iPhone: Safari > compartilhar > Adicionar à Tela de Início > Adicionar.
+
+FUNCIONA NESTA VERSÃO
+- Site instalável/PWA, agenda fixa, ministérios, links opcionais de transmissão.
+- Supabase: cadastro/login, aprovação manual, avisos e eventos pelo administrador.
+- Aniversários: lista pública somente com consentimento, mensagens privadas e avisos aos membros, na CAIXA DE ENTRADA DO APP, gerados pelo cron.
+- Configuração de consentimentos alterável no perfil.
+
+AINDA NÃO ESTÁ INCLUÍDO
+- Notificação push fora do aplicativo, WhatsApp automático, e-mails de aniversário ou envio no aparelho bloqueado.
+- Fotos, Bíblia integrada, galeria, doações, escala de ministérios e inscrições em eventos.
+- Calendário regular atualizado pelo painel (agenda semanal está no HTML).
+- Fluxo específico de cadastro de crianças: não cadastre dados de crianças sem definir autorização verificável dos responsáveis.
+
+PRIVACIDADE
+- Projeto exige autenticação e aprovação para ver avisos internos.
+- Perfil é pessoal, aniversários públicos são apenas nome e dia/mês e dependem de consentimento.
+- Se o titular retirar a autorização, os novos avisos deixam de ser gerados. Avisos que já foram gerados precisam de política de retenção/eliminação antes de uso real.
+- Antes de divulgar o app a toda igreja, teste com contas fictícias e defina uma política de privacidade/LGPD e processo para exclusão de conta/dados.
+
+ATENÇÃO: O ÍCONE é um desenho provisório. Pode ser trocado pela logo oficial da igreja.
