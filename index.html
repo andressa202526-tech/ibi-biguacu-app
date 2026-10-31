@@ -1,61 +1,736 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071f51">
-<meta name="description" content="IBI Biguaçu — Somos igreja, somos família. Cultos, ministérios, eventos e membros.">
-<title>IBI Biguaçu | Somos igreja, somos família</title>
-<link rel="manifest" href="manifest.webmanifest?v=20">
-<link rel="icon" href="icons/icon-192.png?v=20">
-<link rel="apple-touch-icon" href="icons/icon-192.png?v=20">
-<link rel="stylesheet" href="style.css?v=20">
-</head> 
-<script src="personalizacao.js?v=3"></script>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#071b41">
+  <meta name="description"
+        content="IBI Biguaçu. Somos igreja, somos família.">
+
+  <title>IBI Biguaçu | Somos igreja, somos família</title>
+
+  <link rel="manifest" href="manifest.webmanifest?v=108">
+  <link rel="icon" href="icons/icon-192.png?v=108">
+  <link rel="apple-touch-icon"
+        href="icons/icon-192.png?v=108">
+
+  <link rel="stylesheet" href="style.css?v=108">
+</head>
+
 <body>
-<div class="topbar"><div class="topbar-inner"><span>IBI BIGUAÇU · SOMOS IGREJA, SOMOS FAMÍLIA</span><div class="social-small"><a href="https://www.instagram.com/ibibiguacu/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/ibibigucu" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@ibibiguacu" target="_blank" rel="noopener">YouTube</a></div></div></div>
-<header>
-<div class="header-inner">
-<div class="brand"><img class="logo" src="icons/icon-192.png?v=20" alt="Logo IBI Biguaçu"><div><strong>IBI BIGUAÇU</strong><small>Somos igreja, somos família</small></div></div>
-<nav aria-label="Navegação principal">
-<button type="button" data-page="inicio" class="selected">Início</button>
-<button type="button" data-page="sobre">Sobre</button>
-<button type="button" data-page="ministerios">Ministérios</button>
-<button type="button" data-page="agenda">Agenda</button>
-<button type="button" data-page="devocionais">Devocionais</button>
-<button type="button" data-page="midia">Mídia</button>
-<button type="button" data-page="galeria">Galeria</button>
-<button type="button" data-page="contribuir">Contribuir</button>
-<button type="button" data-page="contato">Contato</button>
-<button type="button" data-page="aniversarios">Aniversários</button>
-<button type="button" data-page="membros" class="nav-login">🔒 Membros</button>
-</nav>
+
+<!-- BARRA SUPERIOR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>IBI BIGUAÇU • SOMOS IGREJA, SOMOS FAMÍLIA</span>
+    <div class="social-small">
+      <a href="https://www.instagram.com/ibibiguacu/"
+         target="_blank" rel="noopener noreferrer">
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/ibibigucu"
+         target="_blank" rel="noopener noreferrer">
+        Facebook
+      </a>
+      <a href="https://www.youtube.com/@ibibiguacu"
+         target="_blank" rel="noopener noreferrer">
+        YouTube
+      </a>
+    </div>
+  </div>
 </div>
+
+<!-- CABEÇALHO -->
+<header>
+  <div class="header-inner">
+
+    <div class="brand">
+      <img class="logo"
+           src="icons/icon-192.png?v=108"
+           alt="Logo IBI Biguaçu">
+
+      <div>
+        <strong>IBI BIGUAÇU</strong>
+        <small>Somos igreja, somos família</small>
+      </div>
+    </div>
+
+    <nav aria-label="Navegação principal">
+      <button type="button" data-page="inicio"
+              class="selected">Início</button>
+      <button type="button" data-page="sobre">Sobre</button>
+      <button type="button" data-page="ministerios">
+        Ministérios
+      </button>
+      <button type="button" data-page="agenda">Agenda</button>
+      <button type="button" data-page="devocionais">
+        Devocionais
+      </button>
+      <button type="button" data-page="midia">Mídia</button>
+      <button type="button" data-page="galeria">Galeria</button>
+      <button type="button" data-page="contribuir">
+        Contribuir
+      </button>
+      <button type="button" data-page="contato">Contato</button>
+      <button type="button" data-page="aniversarios">
+        Aniversários
+      </button>
+      <button type="button" data-page="membros"
+              class="nav-login">Membros</button>
+    </nav>
+
+  </div>
 </header>
+
 <main>
-<section id="flash" class="flash" role="status" aria-live="polite" hidden></section>
-<section id="inicio" class="page active">
-<div class="hero"><div class="hero-content"><span class="eyebrow">BEM-VINDO À IBI BIGUAÇU</span><p id="saudacao" class="welcome-name">Que bom ter você aqui!</p><h1>MAIS QUE UMA IGREJA,<br>UMA FAMÍLIA!</h1><p>Uma comunidade centrada em Jesus, firmada na Palavra e comprometida com pessoas. Sua família é bem-vinda.</p><div class="hero-actions"><button type="button" data-page="agenda" class="button accent">CONHEÇA NOSSOS CULTOS</button><button type="button" data-page="contato" class="button outline">PLANEJE SUA VISITA</button></div></div></div>
-<div class="service-strip"><span>PRÓXIMO ENCONTRO</span><strong>Domingo · 19h — Culto da Família</strong><button type="button" data-page="agenda">VER AGENDA ↗</button></div>
-<div class="container home-sections"><div class="section-heading"><span class="kicker">FAÇA PARTE</span><h2>Encontre seu lugar</h2><p>Uma igreja que caminha unida, serve e cresce na fé.</p></div><div class="tiles"><button type="button" data-page="agenda">📅 <strong>Programação</strong><span>Horários dos cultos</span></button><button type="button" data-page="ministerios">🤝 <strong>Ministérios</strong><span>Sirva com a gente</span></button><button type="button" data-page="aniversarios">🎂 <strong>Aniversariantes</strong><span>Celebrar é compartilhar</span></button><button type="button" data-page="membros">🔒 <strong>Área de membros</strong><span>Entre na sua conta</span></button></div><div class="two-columns"><div class="panel"><h2>Próximos eventos</h2><div id="eventosInicio" class="stack">Carregando...</div></div><div class="panel"><h2>Transmissões e redes</h2><div id="links"></div><p>Acompanhe nossas programações e compartilhe com sua família.</p><button type="button" data-page="contato" class="button">NOSSOS CONTATOS</button></div></div></div>
-</section>
-<section id="sobre" class="page container interior"><span class="kicker">CONHEÇA NOSSA FAMÍLIA</span><h1>Sobre a IBI Biguaçu</h1><div class="panel"><h2>Somos igreja, somos família</h2><p>Somos uma comunidade cristã que busca viver a Palavra de Deus, cultivar comunhão e acolher pessoas de todas as idades.</p><p>Você e sua família são bem-vindos para conhecer nossa igreja e participar dos cultos.</p><button type="button" class="button" data-page="contato">COMO NOS VISITAR</button></div></section>
-<section id="agenda" class="page container interior"><span class="kicker">ESTEJA CONOSCO</span><h1>Nossa programação</h1><p class="muted">Confirme possíveis alterações nos comunicados oficiais.</p><div class="stack" id="agendaFixa"><div class="panel"><strong>Segunda · 20h</strong><p>Culto de oração</p></div><div class="panel"><strong>Quarta · 20h</strong><p>Estudo bíblico</p></div><div class="panel"><strong>Sábado · 19h30</strong><p>Elcana — encontro de jovens</p></div><div class="panel"><strong>Domingo · 19h</strong><p>Culto da Família</p></div></div><h2>Eventos especiais</h2><div id="eventos" class="stack"></div></section>
-<section id="ministerios" class="page container interior"><span class="kicker">SERVINDO JUNTOS</span><h1>Nossos ministérios</h1><div class="tiles info"><article>🧒 <strong>Kids</strong><p>Atividades para as crianças.</p></article><article>🌱 <strong>Pré e Juniores</strong><p>Crescendo na fé.</p></article><article>🔥 <strong>Elcana</strong><p>Juventude da igreja.</p></article><article>💗 <strong>Pérolas</strong><p>Ministério de mulheres.</p></article><article>🤝 <strong>Homens</strong><p>Encontros e comunhão.</p></article><article>🎶 <strong>Louvor</strong><p>Adoração e serviço.</p></article><article>📷 <strong>Mídia</strong><p>Comunicação da igreja.</p></article><article>🌍 <strong>Evangelismo</strong><p>Compartilhando a fé.</p></article></div></section>
-<section id="devocionais" class="page container interior"><span class="kicker">PALAVRA PARA O DIA</span><h1>Devocionais</h1><div class="panel"><h2>Firmados em Cristo</h2><p>“Eu sou a videira; vós, as varas.” — João 15:5</p><p>Permaneça em Jesus, cultivando a oração, a leitura bíblica e a comunhão.</p><p class="muted">Novos devocionais poderão ser acrescentados pela equipe da igreja.</p></div></section>
-<section id="midia" class="page container interior"><span class="kicker">ACOMPANHE NOSSA IGREJA</span><h1>Mídia e transmissões</h1><div class="tiles"><a class="linktile" href="https://www.instagram.com/ibibiguacu/" target="_blank" rel="noopener">📷 Instagram<br><small>@ibibiguacu</small></a><a class="linktile" href="https://www.youtube.com/@ibibiguacu" target="_blank" rel="noopener">▶ YouTube<br><small>@ibibiguacu</small></a></div></section>
-<section id="galeria" class="page container interior"><span class="kicker">NOSSOS MOMENTOS</span><h1>Galeria</h1><p class="muted">Memórias dos cultos, encontros e eventos.</p><div id="ibiGaleriaPublica" class="gallery-grid"><p>Em breve, fotos da nossa igreja.</p></div></section>
-<section id="contribuir" class="page container interior"><span class="kicker">GENEROSIDADE</span><h1>Contribuir</h1><div class="panel"><h2>Faça parte do que Deus está fazendo</h2><p>Para informações sobre ofertas, doações e ações da igreja, procure a tesouraria ou a liderança.</p><p class="muted">Os dados oficiais de Pix serão publicados aqui após confirmação da igreja.</p></div></section>
-<section id="contato" class="page container interior"><span class="kicker">VENHA NOS VISITAR</span><h1>Onde estamos</h1><div class="two-columns"><div class="panel"><h2>IBI Biguaçu</h2><p><strong>Endereço:</strong> Rua Manoel Henrique de Lino, 25 — Rio Caveiras, Biguaçu — SC.</p><p><strong>Culto da Família:</strong> domingo às 19h.</p><a class="button" href="https://www.google.com/maps/search/?api=1&query=Rua%20Manoel%20Henrique%20de%20Lino%2025%20Rio%20Caveiras%20Bigua%C3%A7u%20SC" target="_blank" rel="noopener">ABRIR NO GOOGLE MAPS</a><h3>Redes sociais</h3><div class="social-links"><a href="https://www.instagram.com/ibibiguacu/" target="_blank" rel="noopener">Instagram @ibibiguacu</a><a href="https://www.facebook.com/ibibigucu" target="_blank" rel="noopener">Facebook @ibibigucu</a><a href="https://www.youtube.com/@ibibiguacu" target="_blank" rel="noopener">YouTube @ibibiguacu</a></div></div><div class="map-frame"><iframe title="Mapa da IBI Biguaçu" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Rua%20Manoel%20Henrique%20de%20Lino%2C%2025%2C%20Rio%20Caveiras%2C%20Bigua%C3%A7u%2C%20SC&output=embed"></iframe></div></div></section>
-<section id="aniversarios" class="page container interior"><span class="kicker">CELEBRANDO VIDAS</span><h1>🎂 Aniversariantes do mês</h1><p class="muted">Somente membros que autorizaram a divulgação aparecem. Não mostramos o ano de nascimento.</p><div id="birthdays" class="stack">Carregando...</div></section>
-<section id="membros" class="page container interior"><span class="kicker">NOSSA FAMÍLIA</span><h1>Área de membros</h1><div id="authArea"></div><div id="memberArea" hidden><div class="panel"><h2>Meu perfil</h2><p id="memberStatus"></p><form id="profileForm"><label>Nome de exibição<input id="displayName" maxlength="80" required></label><label>Meu aniversário<input id="birthday" type="date"></label><label class="check"><input type="checkbox" id="showBirthday"> Autorizo aparecer na lista mensal</label><label class="check"><input type="checkbox" id="notifyBirthday"> Autorizo avisos aos outros membros no meu aniversário</label><label class="check"><input type="checkbox" id="receiveNotices" checked> Quero receber avisos de aniversário dentro do app</label><button type="submit" class="button">Salvar perfil</button></form></div><div id="approvedArea" hidden><div class="panel"><h2>📬 Minhas mensagens</h2><div id="inbox"></div></div><div class="panel"><h2>🔔 Comunicados internos</h2><div id="announcements"></div></div></div><div id="adminArea" class="panel" hidden><h2>🛠️ Painel administrativo</h2><p class="muted">Publicar avisos e eventos para a igreja.</p><h3>Novo aviso</h3><form id="noticeForm"><label>Título<input name="title" required maxlength="120"></label><label>Mensagem<textarea name="body" required maxlength="2000"></textarea></label><button class="button">Publicar aviso</button></form><h3>Novo evento</h3><form id="eventForm"><label>Nome<input name="title" required maxlength="120"></label><label>Data e hora<input name="starts_at" type="datetime-local" required></label><label>Descrição<textarea name="description" maxlength="2000"></textarea></label><button class="button">Publicar evento</button></form><h3>Cadastros aguardando aprovação</h3><div id="pending"></div></div><button type="button" id="logout" class="button secondary">Sair da conta</button></div></section>
+
+  <div id="flash" class="flash"
+       role="status" aria-live="polite" hidden></div>
+
+  <!-- INÍCIO -->
+  <section id="inicio" class="page active">
+
+    <div class="hero">
+      <div class="hero-content">
+
+        <span class="eyebrow">
+          IGREJA BATISTA INDEPENDENTE DE BIGUAÇU
+        </span>
+
+        <p id="saudacao" class="welcome-name">
+          Que bom ter você aqui!
+        </p>
+
+        <h1>MAIS QUE UMA IGREJA, UMA FAMÍLIA!</h1>
+
+        <p>
+          Um lugar de fé, comunhão e crescimento
+          na Palavra de Deus. Sua família é bem-vinda!
+        </p>
+
+        <div class="hero-actions">
+          <button type="button"
+                  class="button accent"
+                  data-page="agenda">
+            Nossos cultos
+          </button>
+
+          <button type="button"
+                  class="button outline"
+                  data-page="contato">
+            Planeje sua visita
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="service-strip">
+      <span>PRÓXIMO CULTO REGULAR</span>
+      <strong>Domingo • 19h</strong>
+      <span>Culto da Família</span>
+      <button type="button" data-page="agenda">
+        EU VOU →
+      </button>
+    </div>
+
+    <div class="container home-sections">
+
+      <div class="section-heading">
+        <span class="kicker">NOSSA FAMÍLIA</span>
+        <h2>Encontre seu lugar</h2>
+        <p>
+          Uma igreja para caminhar em comunhão.
+        </p>
+      </div>
+
+      <div class="tiles">
+        <button type="button" data-page="agenda">
+          <strong>📅 Agenda</strong>
+          <span>Cultos e programações</span>
+        </button>
+
+        <button type="button" data-page="ministerios">
+          <strong>🤝 Ministérios</strong>
+          <span>Conheça nossa igreja</span>
+        </button>
+
+        <button type="button" data-page="aniversarios">
+          <strong>🎂 Aniversários</strong>
+          <span>Celebre com nossa família</span>
+        </button>
+
+        <button type="button" data-page="membros">
+          <strong>🔒 Área de membros</strong>
+          <span>Seu espaço na igreja</span>
+        </button>
+      </div>
+
+      <div class="two-columns">
+        <div class="panel">
+          <h2>Próximos eventos</h2>
+          <div id="eventosInicio" class="stack">
+            Carregando...
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Transmissões e redes</h2>
+          <div id="links"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="page">
+    <div class="container interior">
+
+      <span class="kicker">QUEM SOMOS</span>
+      <h1>Uma igreja, uma família.</h1>
+
+      <div class="panel">
+        <h2>Bem-vindo à IBI Biguaçu</h2>
+        <p>
+          Somos uma comunidade que deseja crescer
+          na fé, viver a comunhão e compartilhar
+          o amor de Jesus.
+        </p>
+        <p>
+          Aqui, cada pessoa é importante e
+          tem um lugar para caminhar conosco.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MINISTÉRIOS -->
+  <section id="ministerios" class="page">
+    <div class="container interior">
+
+      <span class="kicker">SERVIR E CRESCER</span>
+      <h1>Nossos ministérios</h1>
+
+      <div class="tiles info">
+
+        <article>
+          <strong>🧒 Kids</strong>
+          <p>Ensinando a Palavra às crianças.</p>
+        </article>
+
+        <article>
+          <strong>🌱 Pré e Juniores</strong>
+          <p>Crescendo na fé e na Palavra.</p>
+        </article>
+
+        <article>
+          <strong>🔥 Elcana</strong>
+          <p>Juventude da IBI Biguaçu.</p>
+        </article>
+
+        <article>
+          <strong>💗 Pérolas</strong>
+          <p>Ministério de mulheres.</p>
+        </article>
+
+        <article>
+          <strong>🤝 Homens</strong>
+          <p>Comunhão e crescimento espiritual.</p>
+        </article>
+
+        <article>
+          <strong>🎶 Louvor</strong>
+          <p>Adoração e serviço ao Senhor.</p>
+        </article>
+
+        <article>
+          <strong>📷 Mídia</strong>
+          <p>Comunicação e divulgação da igreja.</p>
+        </article>
+
+        <article>
+          <strong>🌍 Evangelismo</strong>
+          <p>Compartilhando o amor de Cristo.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section id="agenda" class="page">
+    <div class="container interior">
+
+      <span class="kicker">PROGRAMAÇÃO</span>
+      <h1>Nossos cultos e encontros</h1>
+
+      <p class="muted">
+        Confira possíveis alterações nos avisos oficiais.
+      </p>
+
+      <div id="agendaFixa" class="stack">
+        <div class="panel">
+          <strong>Segunda-feira • 20h</strong>
+          <p>Oração</p>
+        </div>
+
+        <div class="panel">
+          <strong>Quarta-feira • 20h</strong>
+          <p>Estudo Bíblico</p>
+        </div>
+
+        <div class="panel">
+          <strong>Sábado • 19h30</strong>
+          <p>Elcana — Jovens</p>
+        </div>
+
+        <div class="panel">
+          <strong>Domingo • 19h</strong>
+          <p>Culto da Família</p>
+        </div>
+      </div>
+
+      <h2>Eventos especiais</h2>
+      <div id="eventos" class="stack"></div>
+
+    </div>
+  </section>
+
+  <!-- DEVOCIONAIS -->
+  <section id="devocionais" class="page">
+    <div class="container interior">
+
+      <span class="kicker">PALAVRA DE DEUS</span>
+      <h1>Devocionais</h1>
+
+      <div class="panel">
+        <h2>Um momento com Deus</h2>
+        <p>
+          Aqui compartilharemos reflexões bíblicas,
+          mensagens e conteúdos para fortalecer
+          nossa caminhada com Cristo.
+        </p>
+        <p class="muted">
+          Novos devocionais serão publicados em breve.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MÍDIA -->
+  <section id="midia" class="page">
+    <div class="container interior">
+
+      <span class="kicker">COMUNICAÇÃO</span>
+      <h1>Mídia e transmissões</h1>
+
+      <div class="panel">
+        <h2>Acompanhe nossa igreja</h2>
+        <p>
+          Veja nossas publicações, vídeos
+          e programações nas redes sociais.
+        </p>
+
+        <div class="social-links">
+          <a class="linktile"
+             href="https://www.instagram.com/ibibiguacu/"
+             target="_blank" rel="noopener noreferrer">
+            Instagram — @ibibiguacu
+          </a>
+
+          <a class="linktile"
+             href="https://www.youtube.com/@ibibiguacu"
+             target="_blank" rel="noopener noreferrer">
+            YouTube — @ibibiguacu
+          </a>
+
+          <a class="linktile"
+             href="https://www.facebook.com/ibibigucu"
+             target="_blank" rel="noopener noreferrer">
+            Facebook — IBI Biguaçu
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section id="galeria" class="page">
+    <div class="container interior">
+
+      <span class="kicker">NOSSOS MOMENTOS</span>
+      <h1>Galeria da igreja</h1>
+
+      <p>
+        Momentos especiais da nossa família em Cristo.
+      </p>
+
+      <div id="ibiGaleriaPublica"
+           class="gallery-grid">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTRIBUIR -->
+  <section id="contribuir" class="page">
+    <div class="container interior">
+
+      <span class="kicker">GENEROSIDADE</span>
+      <h1>Contribuir</h1>
+
+      <div class="panel">
+        <h2>Generosidade e gratidão</h2>
+
+        <p>
+          As contribuições ajudam a igreja
+          a continuar seu trabalho e ministérios.
+        </p>
+
+        <p class="muted">
+          As informações oficiais de contribuição
+          serão disponibilizadas pela administração.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTATO E LOCALIZAÇÃO -->
+  <section id="contato" class="page">
+    <div class="container interior">
+
+      <span class="kicker">VENHA NOS VISITAR</span>
+      <h1>Estamos esperando você!</h1>
+
+      <div class="two-columns">
+
+        <div class="panel">
+          <h2>Onde estamos</h2>
+
+          <p>
+            <strong>IBI Biguaçu</strong>
+          </p>
+
+          <p>
+            Rua Manoel Henrique de Lino, 25<br>
+            Rio Caveiras — Biguaçu, SC
+          </p>
+
+          <a class="button"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Manoel%20Henrique%20de%20Lino%2025%20Rio%20Caveiras%20Bigua%C3%A7u%20SC"
+             target="_blank"
+             rel="noopener noreferrer">
+            Abrir no Google Maps
+          </a>
+
+          <h3>Redes sociais</h3>
+
+          <div class="social-links">
+
+            <a href="https://www.instagram.com/ibibiguacu/"
+               target="_blank"
+               rel="noopener noreferrer">
+              Instagram — @ibibiguacu
+            </a>
+
+            <a href="https://www.facebook.com/ibibigucu"
+               target="_blank"
+               rel="noopener noreferrer">
+              Facebook — IBI Biguaçu
+            </a>
+
+            <a href="https://www.youtube.com/@ibibiguacu"
+               target="_blank"
+               rel="noopener noreferrer">
+              YouTube — @ibibiguacu
+            </a>
+
+          </div>
+        </div>
+
+        <div class="map-frame">
+          <iframe
+            title="Localização da IBI Biguaçu"
+            src="https://www.google.com/maps?q=Rua%20Manoel%20Henrique%20de%20Lino%2025%20Rio%20Caveiras%20Bigua%C3%A7u%20SC&amp;output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ANIVERSARIANTES -->
+  <section id="aniversarios" class="page">
+    <div class="container interior">
+
+      <span class="kicker">NOSSA FAMÍLIA</span>
+      <h1>🎂 Aniversariantes do mês</h1>
+
+      <p class="muted">
+        Aparecem apenas os membros que autorizaram
+        a divulgação do aniversário.
+      </p>
+
+      <div id="birthdays" class="stack">
+        Carregando...
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ÁREA DE MEMBROS -->
+  <section id="membros" class="page">
+    <div class="container interior">
+
+      <span class="kicker">ACESSO EXCLUSIVO</span>
+      <h1>Área de membros</h1>
+
+      <div id="authArea"></div>
+
+      <div id="memberArea" hidden>
+
+        <div class="panel">
+          <h2>Meu perfil</h2>
+
+          <p id="memberStatus"></p>
+
+          <form id="profileForm">
+
+            <label>
+              Nome de exibição
+              <input
+                id="displayName"
+                maxlength="80"
+                required>
+            </label>
+
+            <label>
+              Meu aniversário
+              <input id="birthday" type="date">
+            </label>
+
+            <label class="check">
+              <input type="checkbox" id="showBirthday">
+              Autorizo aparecer na lista de aniversariantes
+            </label>
+
+            <label class="check">
+              <input type="checkbox" id="notifyBirthday">
+              Autorizo avisos aos membros no meu aniversário
+            </label>
+
+            <label class="check">
+              <input type="checkbox"
+                     id="receiveNotices" checked>
+              Quero receber avisos de aniversário no aplicativo
+            </label>
+
+            <!-- O app.js acrescenta os dados complementares -->
+
+            <button type="submit" class="button">
+              Salvar perfil
+            </button>
+
+          </form>
+        </div>
+
+        <div id="approvedArea" hidden>
+
+          <div class="panel">
+            <h2>📬 Minhas mensagens</h2>
+            <div id="inbox"></div>
+          </div>
+
+          <div class="panel">
+            <h2>🔔 Comunicados internos</h2>
+            <div id="announcements"></div>
+          </div>
+
+        </div>
+
+        <!-- ADMINISTRAÇÃO -->
+        <div id="adminArea" class="panel" hidden>
+
+          <h2>🛠️ Painel administrativo</h2>
+
+          <p class="muted">
+            Gerencie avisos, eventos e membros.
+          </p>
+
+          <h3>Novo aviso</h3>
+
+          <form id="noticeForm">
+
+            <label>
+              Título
+              <input name="title"
+                     maxlength="120" required>
+            </label>
+
+            <label>
+              Mensagem
+              <textarea name="body"
+                        maxlength="2000"
+                        required></textarea>
+            </label>
+
+            <button type="submit" class="button">
+              Publicar aviso
+            </button>
+
+          </form>
+
+          <h3>Novo evento</h3>
+
+          <form id="eventForm">
+
+            <label>
+              Nome
+              <input name="title"
+                     maxlength="120" required>
+            </label>
+
+            <label>
+              Data e hora
+              <input name="starts_at"
+                     type="datetime-local" required>
+            </label>
+
+            <label>
+              Descrição
+              <textarea name="description"
+                        maxlength="2000"></textarea>
+            </label>
+
+            <button type="submit" class="button">
+              Publicar evento
+            </button>
+
+          </form>
+
+          <h3>Cadastros aguardando aprovação</h3>
+          <div id="pending"></div>
+
+          <!-- personalizacao.js cria aqui o painel visual -->
+
+        </div>
+
+        <button type="button"
+                id="logout"
+                class="button secondary">
+          Sair da conta
+        </button>
+
+      </div>
+    </div>
+  </section>
+
 </main>
-<footer><strong>IBI BIGUAÇU</strong><p>Somos igreja, somos família</p><small>Rua Manoel Henrique de Lino, 25 · Rio Caveiras · Biguaçu/SC</small></footer>
+
+<!-- RODAPÉ -->
+<footer>
+  <strong>IBI BIGUAÇU</strong>
+  <p>Somos igreja, somos família.</p>
+  <small>Biguaçu — Santa Catarina</small>
+</footer>
+
+<!-- BIBLIOTECA SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="config.js?v=20"></script>
-<script src="visual.js?v=20"></script>
-<script src="app.js?v=20"></script>
 
+<!-- CONEXÃO COM BANCO -->
+<script src="config.js?v=108"></script>
 
-<script src="personalizacao.js?v=200"></script>
-</body></html>
+<!-- NAVEGAÇÃO DE RECUPERAÇÃO -->
+<script>
+  document.querySelectorAll("[data-page]").forEach(function(botao) {
+    botao.addEventListener("click", function() {
+      const destino = botao.dataset.page;
+
+      document.querySelectorAll(".page").forEach(function(pagina) {
+        pagina.classList.toggle(
+          "active",
+          pagina.id === destino
+        );
+      });
+
+      document.querySelectorAll("nav button").forEach(function(item) {
+        item.classList.toggle(
+          "selected",
+          item.dataset.page === destino
+        );
+      });
+
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
+
+<!-- FUNÇÕES ORIGINAIS DO APLICATIVO -->
+<script src="app.js?v=108"></script>
+
+<!-- SAUDAÇÃO PERSONALIZADA -->
+<script>
+  (function () {
+    const destino = document.getElementById("saudacao");
+
+    async function atualizarSaudacao() {
+      if (!destino) return;
+
+      destino.textContent = "Que bom ter você aqui!";
+
+      try {
+        if (typeof db === "undefined" || !db) return;
+
+        const { data } = await db.auth.getUser();
+        const usuario = data?.user;
+
+        if (!usuario) return;
+
+        let nome = usuario.user_metadata?.display_name || "";
+
+        const { data: perfil } = await db
+          .from("profiles")
+          .select("display_name")
+          .eq("id", usuario.id)
+          .maybeSingle();
+
+        if (perfil?.display_name) {
+          nome = perfil.display_name;
+        }
+
+        const primeiroNome = nome.trim().split(/\s+/)[0];
+
+        if (primeiroNome) {
+          destino.textContent =
+            "Olá, " + primeiroNome + "! Que bom ter você aqui.";
+        }
+      } catch (erro) {
+        console.warn("Saudação:", erro);
+      }
+    }
+
+    atualizarSaudacao();
+
+    if (typeof db !== "undefined" && db) {
+      db.auth.onAuthStateChange(function() {
+        setTimeout(atualizarSaudacao, 0);
+      });
+    }
+  })();
+</script>
+
+<!-- PAINEL DE PERSONALIZAÇÃO -->
+<script src="personalizacao.js?v=108"></script>
+
+</body>
+</html>
