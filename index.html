@@ -1,21 +1,425 @@
+
 <!doctype html>
-<html lang="pt-BR"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#071f51">
-<meta name="description" content="IBI Biguaçu: nossa igreja, nossa família. Agenda, ministérios e área dos membros.">
-<link rel="manifest" href="manifest.webmanifest?v=3"><link rel="icon" href="icons/icon-192.png?v=3">
-<link rel="apple-touch-icon" href="icons/icon-192.png?v=3">
-<title>IBI Biguaçu • Somos igreja, somos família</title>
-<link rel="stylesheet" href="style.css?v=3">
-</head><body>
-<header><div class="brand"><img class="logo" src="icons/icon-192.png?v=3" alt="Logo oficial da IBI Biguaçu"><div><strong>IBI Biguaçu</strong><small>Somos igreja, somos família</small></div></div><nav><button data-page="inicio">Início</button><button data-page="agenda">Agenda</button><button data-page="ministerios">Ministérios</button><button data-page="aniversarios">Aniversários</button><button data-page="membros">Membros</button></nav></header>
-<main><section id="flash" class="flash" role="status" hidden></section>
-<section id="inicio" class="page active"><div class="hero"><span class="eyebrow">BEM-VINDO À NOSSA FAMÍLIA</span><h1>Uma igreja para caminhar em comunhão.</h1><p>Cultos, avisos, ministérios e eventos em um só lugar.</p><button data-page="agenda" class="button light">Ver programação</button></div><h2>Encontre seu lugar</h2><div class="tiles"><button data-page="agenda">📅 Agenda semanal</button><button data-page="ministerios">🤝 Ministérios</button><button data-page="aniversarios">🎂 Aniversariantes</button><button data-page="membros">🔒 Área de membros</button></div><div class="panel"><h2>Transmissões e redes</h2><div id="links"></div></div><div class="panel"><h2>Próximos eventos</h2><div id="eventosInicio" class="stack">Carregando...</div></div></section>
-<section id="agenda" class="page"><h1>Programação da igreja</h1><p class="muted">Encontros regulares. Confirme eventuais alterações nos avisos oficiais.</p><div class="stack" id="agendaFixa"><div class="panel">Segunda • 20h — Oração</div><div class="panel">Quarta • 20h — Estudo bíblico</div><div class="panel">Sábado • 19h30 — Elcana (jovens)</div><div class="panel">Domingo • 19h — Culto da Família</div></div><h2>Eventos especiais</h2><div id="eventos" class="stack"></div></section>
-<section id="ministerios" class="page"><h1>Nossos ministérios</h1><div class="tiles info"><article>🧒 <strong>Kids</strong><p>Atividades para as crianças.</p></article><article>🌱 <strong>Pré e Juniores</strong><p>Crescendo na fé.</p></article><article>🔥 <strong>Elcana</strong><p>Juventude da igreja.</p></article><article>💗 <strong>Pérolas</strong><p>Ministério de mulheres.</p></article><article>🤝 <strong>Homens</strong><p>Encontros e comunhão.</p></article><article>🎶 <strong>Louvor</strong><p>Adoração e serviço.</p></article><article>📷 <strong>Mídia</strong><p>Comunicação da igreja.</p></article><article>🌍 <strong>Evangelismo</strong><p>Compartilhando a fé.</p></article></div></section>
-<section id="aniversarios" class="page"><h1>🎂 Aniversariantes do mês</h1><p class="muted">Só aparecem membros que autorizaram a divulgação. O ano de nascimento nunca é exibido.</p><div id="birthdays" class="stack"></div></section>
-<section id="membros" class="page"><h1>Área de membros</h1><div id="authArea"></div><div id="memberArea" hidden><div class="panel"><h2>Meu perfil</h2><p id="memberStatus"></p><form id="profileForm"><label>Nome de exibição<input id="displayName" maxlength="80" required></label><label>Meu aniversário (dia e mês)<input id="birthday" type="date"></label><label class="check"><input type="checkbox" id="showBirthday"> Autorizo aparecer na lista mensal</label><label class="check"><input type="checkbox" id="notifyBirthday"> Autorizo avisos aos outros membros no meu aniversário</label><label class="check"><input type="checkbox" id="receiveNotices" checked> Quero receber avisos de aniversário de outros membros dentro do app</label><button type="submit" class="button">Salvar perfil</button></form></div><div id="approvedArea" hidden><div class="panel"><h2>📬 Minhas mensagens</h2><div id="inbox"></div></div><div class="panel"><h2>🔔 Comunicados internos</h2><div id="announcements"></div></div></div><div id="adminArea" class="panel" hidden><h2>🛠️ Painel administrativo</h2><p class="muted">Publicar avisos e eventos para a igreja.</p><h3>Novo aviso</h3><form id="noticeForm"><label>Título<input name="title" required maxlength="120"></label><label>Mensagem<textarea name="body" required maxlength="2000"></textarea></label><button class="button">Publicar aviso</button></form><h3>Novo evento</h3><form id="eventForm"><label>Nome<input name="title" required maxlength="120"></label><label>Data e hora<input name="starts_at" type="datetime-local" required></label><label>Descrição<textarea name="description" maxlength="2000"></textarea></label><button class="button">Publicar evento</button></form><h3>Cadastros aguardando aprovação</h3><div id="pending"></div></div><button id="logout" class="button secondary">Sair da conta</button></div></section>
-</main><footer>IBI Biguaçu • Somos igreja, somos família</footer>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="theme-color" content="#071f51">
+  <meta name="description"
+        content="IBI Biguaçu: nossa igreja, nossa família. Agenda, ministérios e área dos membros.">
+
+  <title>IBI Biguaçu • Somos igreja, somos família</title>
+
+  <link rel="manifest" href="manifest.webmanifest?v=11">
+  <link rel="icon" href="icons/icon-192.png?v=11">
+  <link rel="apple-touch-icon" href="icons/icon-192.png?v=11">
+  <link rel="stylesheet" href="style.css?v=11">
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img
+      class="logo"
+      src="icons/icon-192.png?v=11"
+      alt="Logo da IBI Biguaçu"
+    >
+
+    <div>
+      <strong>IBI Biguaçu</strong>
+      <small>Somos igreja, somos família</small>
+    </div>
+  </div>
+
+  <nav aria-label="Menu principal">
+    <button type="button" data-page="inicio" class="selected">Início</button>
+    <button type="button" data-page="agenda">Agenda</button>
+    <button type="button" data-page="ministerios">Ministérios</button>
+    <button type="button" data-page="aniversarios">Aniversários</button>
+    <button type="button" data-page="membros">Membros</button>
+  </nav>
+</header>
+
+<main>
+
+  <section
+    id="flash"
+    class="flash"
+    role="status"
+    aria-live="polite"
+    hidden>
+  </section>
+
+  <!-- INÍCIO -->
+
+  <section id="inicio" class="page active">
+
+    <div class="hero">
+      <span class="eyebrow">BEM-VINDO À NOSSA FAMÍLIA</span>
+
+      <h1>Uma igreja para caminhar em comunhão.</h1>
+
+      <p>
+        Cultos, avisos, ministérios e eventos em um só lugar.
+      </p>
+
+      <button
+        type="button"
+        data-page="agenda"
+        class="button light">
+        Ver programação
+      </button>
+    </div>
+
+    <h2>Encontre seu lugar</h2>
+
+    <div class="tiles">
+      <button type="button" data-page="agenda">
+        📅 Agenda semanal
+      </button>
+
+      <button type="button" data-page="ministerios">
+        🤝 Ministérios
+      </button>
+
+      <button type="button" data-page="aniversarios">
+        🎂 Aniversariantes
+      </button>
+
+      <button type="button" data-page="membros">
+        🔒 Área de membros
+      </button>
+    </div>
+
+    <div class="panel">
+      <h2>Transmissões e redes</h2>
+      <div id="links"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Próximos eventos</h2>
+      <div id="eventosInicio" class="stack">
+        Carregando...
+      </div>
+    </div>
+
+  </section>
+
+  <!-- AGENDA -->
+
+  <section id="agenda" class="page">
+
+    <h1>Programação da igreja</h1>
+
+    <p class="muted">
+      Encontros regulares. Confirme eventuais alterações
+      nos avisos oficiais.
+    </p>
+
+    <div class="stack" id="agendaFixa">
+
+      <div class="panel">
+        Segunda-feira • 20h — Oração
+      </div>
+
+      <div class="panel">
+        Quarta-feira • 20h — Estudo Bíblico
+      </div>
+
+      <div class="panel">
+        Sábado • 19h30 — Elcana (Jovens)
+      </div>
+
+      <div class="panel">
+        Domingo • 19h — Culto da Família
+      </div>
+
+    </div>
+
+    <h2>Eventos especiais</h2>
+    <div id="eventos" class="stack"></div>
+
+  </section>
+
+  <!-- MINISTÉRIOS -->
+
+  <section id="ministerios" class="page">
+
+    <h1>Nossos ministérios</h1>
+
+    <div class="tiles info">
+
+      <article>
+        🧒 <strong>Kids</strong>
+        <p>Atividades para as crianças.</p>
+      </article>
+
+      <article>
+        🌱 <strong>Pré e Juniores</strong>
+        <p>Crescendo na fé.</p>
+      </article>
+
+      <article>
+        🔥 <strong>Elcana</strong>
+        <p>Juventude da igreja.</p>
+      </article>
+
+      <article>
+        💗 <strong>Pérolas</strong>
+        <p>Ministério de mulheres.</p>
+      </article>
+
+      <article>
+        🤝 <strong>Homens</strong>
+        <p>Encontros e comunhão.</p>
+      </article>
+
+      <article>
+        🎶 <strong>Louvor</strong>
+        <p>Adoração e serviço.</p>
+      </article>
+
+      <article>
+        📷 <strong>Mídia</strong>
+        <p>Comunicação da igreja.</p>
+      </article>
+
+      <article>
+        🌍 <strong>Evangelismo</strong>
+        <p>Compartilhando a fé.</p>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- ANIVERSÁRIOS -->
+
+  <section id="aniversarios" class="page">
+
+    <h1>🎂 Aniversariantes do mês</h1>
+
+    <p class="muted">
+      Somente membros que autorizaram a divulgação
+      aparecem nesta lista. O ano de nascimento não é exibido.
+    </p>
+
+    <div id="birthdays" class="stack">
+      Carregando...
+    </div>
+
+  </section>
+
+  <!-- MEMBROS -->
+
+  <section id="membros" class="page">
+
+    <h1>Área de membros</h1>
+
+    <div id="authArea">
+      <p>Carregando acesso...</p>
+    </div>
+
+    <div id="memberArea" hidden>
+
+      <!-- PERFIL -->
+
+      <div class="panel">
+
+        <h2>Meu perfil</h2>
+
+        <p id="memberStatus"></p>
+
+        <form id="profileForm">
+
+          <label>
+            Nome de exibição
+            <input
+              id="displayName"
+              name="display_name"
+              maxlength="80"
+              required>
+          </label>
+
+          <label>
+            Meu aniversário
+            <input
+              id="birthday"
+              type="date">
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="showBirthday">
+            Autorizo aparecer na lista de aniversariantes
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="notifyBirthday">
+            Autorizo avisos aos outros membros no meu aniversário
+          </label>
+
+          <label class="check">
+            <input
+              type="checkbox"
+              id="receiveNotices"
+              checked>
+            Quero receber avisos de aniversários dentro do aplicativo
+          </label>
+
+          <!-- O app.js insere aqui os dados complementares -->
+          <!-- Cargo, ministério, WhatsApp e endereço -->
+
+          <button type="submit" class="button">
+            Salvar perfil
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- CONTEÚDO DOS MEMBROS -->
+
+      <div id="approvedArea" hidden>
+
+        <div class="panel">
+          <h2>📬 Minhas mensagens</h2>
+          <div id="inbox"></div>
+        </div>
+
+        <div class="panel">
+          <h2>🔔 Comunicados internos</h2>
+          <div id="announcements"></div>
+        </div>
+
+      </div>
+
+      <!-- ADMINISTRADOR -->
+
+      <div id="adminArea" class="panel" hidden>
+
+        <h2>🛠️ Painel administrativo</h2>
+
+        <p class="muted">
+          Gerencie eventos, avisos e solicitações de cadastro.
+        </p>
+
+        <h3>Novo aviso</h3>
+
+        <form id="noticeForm">
+
+          <label>
+            Título
+            <input
+              name="title"
+              maxlength="120"
+              required>
+          </label>
+
+          <label>
+            Mensagem
+            <textarea
+              name="body"
+              maxlength="2000"
+              required></textarea>
+          </label>
+
+          <button type="submit" class="button">
+            Publicar aviso
+          </button>
+
+        </form>
+
+        <h3>Novo evento</h3>
+
+        <form id="eventForm">
+
+          <label>
+            Nome
+            <input
+              name="title"
+              maxlength="120"
+              required>
+          </label>
+
+          <label>
+            Data e hora
+            <input
+              name="starts_at"
+              type="datetime-local"
+              required>
+          </label>
+
+          <label>
+            Descrição
+            <textarea
+              name="description"
+              maxlength="2000"></textarea>
+          </label>
+
+          <button type="submit" class="button">
+            Publicar evento
+          </button>
+
+        </form>
+
+        <h3>Cadastros aguardando aprovação</h3>
+
+        <div id="pending"></div>
+
+      </div>
+
+      <button
+        type="button"
+        id="logout"
+        class="button secondary">
+        Sair da conta
+      </button>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  IBI Biguaçu • Somos igreja, somos família
+</footer>
+
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="config.js"></script><script src="app.js?v=3"></script>
-</body></html>
+
+<!-- CONFIGURAÇÃO -->
+<script src="config.js?v=11"></script>
+
+<!-- NAVEGAÇÃO DE RECUPERAÇÃO -->
+<script>
+  document.querySelectorAll("[data-page]").forEach(function(botao) {
+    botao.addEventListener("click", function() {
+      var destino = botao.getAttribute("data-page");
+
+      document.querySelectorAll(".page").forEach(function(pagina) {
+        pagina.classList.toggle(
+          "active",
+          pagina.id === destino
+        );
+      });
+
+      document.querySelectorAll("nav button").forEach(function(item) {
+        item.classList.toggle(
+          "selected",
+          item.getAttribute("data-page") === destino
+        );
+      });
+
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
+
+<!-- APLICATIVO -->
+<script src="app.js?v=11"></script>
+
+</body>
+</html>
