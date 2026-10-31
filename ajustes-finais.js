@@ -1,140 +1,140 @@
 
 /*
-  IBI BIGUAÇU
-  AJUSTES FINAIS - V1
-
-  Mantém o site público e o sistema atual.
-  Organiza o acesso e o devocional diário.
+  IBI BIGUAÇU - AJUSTES FINAIS V3
+  Visitante, Membro e Administrador.
+  Solicitar cadastro somente em Visitante.
+  Devocional diário com data.
 */
-
 (function () {
   "use strict";
 
-  const $ = seletor => document.querySelector(seletor);
+  const $ = s => document.querySelector(s);
 
-  // ESTILO
   const estilo = document.createElement("style");
-
   estilo.textContent = `
-    /* Esconder título grande da tela de entrada */
     #membros > .container > h1,
     #membros > .container > .kicker {
       display: none !important;
     }
 
-    /* Apenas a apresentação do acesso */
     #ibiEscolhaAcesso .ibiGrade {
       display: grid;
       grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 12px;
+      gap: 10px;
       max-width: 900px;
     }
 
     #ibiEscolhaAcesso .ibiCartao {
       min-width: 0;
-      min-height: 135px;
-      padding: 18px 12px;
+      min-height: 125px;
       border-radius: 16px;
+      padding: 15px 10px;
     }
 
     #ibiEscolhaAcesso .ibiCartao strong {
-      font-size: 14px;
+      font-size: 13px;
       overflow-wrap: anywhere;
     }
 
     #ibiEscolhaAcesso .ibiCartao small {
-      font-size: 12px;
+      font-size: 11px;
     }
 
     #ibiEscolhaAcesso .ibiCartao.ativo {
       background: #eaf2ff;
-      border-color: #1d538f;
+      border-color: #24599d;
     }
 
-    /* Formulário do visitante */
-    #ibiVisitanteForm {
-      background: white;
-      border: 1px solid #d6e3f0;
-      border-radius: 16px;
-      padding: 23px;
-      margin: 20px 0;
+    #ibiVisitanteForm,
+    #ibiCadastroVisitante {
+      background: #fff;
       color: #153259;
+      border: 1px solid #d8e4f2;
+      border-radius: 16px;
+      padding: 22px;
+      margin: 16px 0;
     }
 
-    #ibiVisitanteForm[hidden] {
+    #ibiVisitanteForm[hidden],
+    #ibiCadastroVisitante[hidden],
+    #authArea[hidden] {
       display: none !important;
     }
 
     #ibiVisitanteForm input {
       display: block;
       width: 100%;
-      padding: 13px;
       box-sizing: border-box;
-      border: 1px solid #b7c9df;
+      padding: 12px;
+      border: 1px solid #c4d3e5;
       border-radius: 9px;
       margin: 12px 0;
       font: inherit;
     }
 
     #ibiVisitanteForm button {
-      padding: 12px 20px;
       background: #123e77;
       color: white;
+      padding: 12px 18px;
       border: 0;
       border-radius: 10px;
       cursor: pointer;
     }
 
-    /* Devocional */
+    #ibiCadastroVisitante > .panel {
+      margin: 0;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
     #ibiDevocional {
       max-width: 850px;
-      margin: 20px 0;
-      padding: 25px;
-      border-radius: 18px;
-      background: linear-gradient(135deg,#f0f6ff,#ffffff);
+      padding: 24px;
+      background: linear-gradient(135deg,#eef5ff,#fff);
       border: 1px solid #d6e4f2;
-      color: #183453;
-    }
-
-    #ibiDevocional .ibiData {
-      font-size: 13px;
-      color: #527092;
-    }
-
-    #ibiDevocional .ibiRef {
-      display: block;
-      margin: 18px 0 10px;
-      font-size: clamp(21px,4vw,27px);
-      font-weight: bold;
-      color: #10396e;
-    }
-
-    #ibiDevocional .ibiResumo {
-      font-size: 16px;
-      line-height: 1.8;
-      margin: 0;
+      border-radius: 18px;
+      color: #173456;
     }
 
     #ibiDevocional .ibiTopoDev {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
+      align-items: center;
       gap: 10px;
     }
 
-    @media(max-width: 550px) {
+    #ibiDevocional .ibiRef {
+      display: block;
+      font-size: 24px;
+      font-weight: bold;
+      color: #123d72;
+      margin: 20px 0 12px;
+    }
+
+    #ibiDevocional .ibiResumo {
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    #ibiDevocional .ibiData {
+      font-size: 13px;
+      color: #55718c;
+    }
+
+    @media(max-width:500px) {
       #ibiEscolhaAcesso .ibiGrade {
-        gap: 7px;
+        gap: 6px;
       }
 
       #ibiEscolhaAcesso .ibiCartao {
-        min-height: 120px;
-        padding: 12px 7px;
+        min-height: 112px;
+        padding: 11px 6px;
       }
 
       #ibiEscolhaAcesso .ibiCartao strong {
-        font-size: 12px;
+        font-size: 11px;
       }
 
       #ibiEscolhaAcesso .ibiCartao small {
@@ -142,19 +142,15 @@
       }
     }
   `;
+  document.head.append(estilo);
 
-  document.head.appendChild(estilo);
-
-  function criar(tag, texto, classe) {
-    const elemento = document.createElement(tag);
-
-    if (texto !== undefined) {
-      elemento.textContent = texto;
-    }
-
-    if (classe) elemento.className = classe;
-
-    return elemento;
+  function dataBrasil() {
+    return new Intl.DateTimeFormat("pt-BR", {
+      timeZone: "America/Sao_Paulo",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }).format(new Date());
   }
 
   function cliente() {
@@ -165,347 +161,308 @@
     }
   }
 
-  // DATA NO HORÁRIO DE BRASÍLIA
-  function dataBrasil() {
-    return new Intl.DateTimeFormat("pt-BR", {
-      timeZone: "America/Sao_Paulo",
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    }).format(new Date());
-  }
-
-  // NOME DO VISITANTE, SEM CRIAR CONTA
-  function mostrarNomeVisitante(nome) {
-    const saudacao = $("#saudacao");
-
-    if (saudacao && nome) {
-      saudacao.textContent =
-        "Olá, graça e paz, " + nome + "!";
+  function saudacao(nome) {
+    const el = $("#saudacao");
+    if (el && nome) {
+      el.textContent = "Olá, graça e paz, " + nome + "!";
     }
   }
 
-  async function recuperarNomeVisitante() {
-    const nome = sessionStorage.getItem(
-      "ibiVisitanteNome"
-    );
-
+  async function recuperarVisitante() {
+    const nome = sessionStorage.getItem("ibiVisitanteNome");
     if (!nome) return;
 
     const api = cliente();
 
-    if (api) {
-      try {
+    try {
+      if (api) {
         const { data } = await api.auth.getUser();
-
         if (data?.user) return;
-      } catch (erro) {
-        console.warn("Visitante:", erro);
       }
+      saudacao(nome);
+    } catch (erro) {
+      console.warn("Saudação:", erro);
     }
-
-    mostrarNomeVisitante(nome);
   }
 
-  // ENTRAR: VISITANTE / MEMBRO / ADMIN
   function configurarEntrada() {
     const escolha = $("#ibiEscolhaAcesso");
+    const grade = escolha?.querySelector(".ibiGrade");
     const auth = $("#authArea");
     const membro = $("#memberArea");
 
-    if (!escolha || !auth) return;
+    if (!escolha || !grade || !auth) return;
 
-    const grade = escolha.querySelector(".ibiGrade");
-    if (!grade) return;
+    const titulo = escolha.querySelector(".ibiTopoPainel h2");
+    const descricao = escolha.querySelector(".ibiTopoPainel p");
 
-    const titulo = escolha.querySelector(
-      ".ibiTopoPainel h2"
-    );
-
-    if (titulo) {
-      titulo.textContent = "Como deseja entrar?";
-    }
-
-    const descricao = escolha.querySelector(
-      ".ibiTopoPainel p"
-    );
-
+    if (titulo) titulo.textContent = "Como deseja entrar?";
     if (descricao) {
-      descricao.textContent =
-        "Escolha uma opção para continuar.";
+      descricao.textContent = "Escolha uma opção para continuar.";
     }
 
-    // PRIMEIRO QUADRADO: VISITANTE
     let visitante = $("#ibiOpcaoVisitante");
 
     if (!visitante) {
-      visitante = criar("button");
+      visitante = document.createElement("button");
       visitante.type = "button";
       visitante.id = "ibiOpcaoVisitante";
       visitante.className = "ibiCartao";
 
-      visitante.append(
-        criar("span", "👋", "ibiIcone"),
-        criar("strong", "Visitante"),
-        criar("small", "Conhecer nossa igreja")
-      );
+      const icone = document.createElement("span");
+      icone.className = "ibiIcone";
+      icone.textContent = "👋";
 
+      const nome = document.createElement("strong");
+      nome.textContent = "Visitante";
+
+      const explicacao = document.createElement("small");
+      explicacao.textContent = "Conhecer a igreja";
+
+      visitante.append(icone, nome, explicacao);
       grade.prepend(visitante);
     }
 
-    // FORMULÁRIO DO VISITANTE
+    // FORMULÁRIO SIMPLES DE VISITANTE
     let form = $("#ibiVisitanteForm");
 
     if (!form) {
-      form = criar("form");
+      form = document.createElement("form");
       form.id = "ibiVisitanteForm";
-      form.hidden = true;
 
-      const tituloForm = criar(
-        "h3",
-        "Seja bem-vindo à IBI Biguaçu!"
-      );
+      form.innerHTML = `
+        <h3>Seja bem-vindo à IBI Biguaçu!</h3>
+        <p>Como podemos chamar você?</p>
+        <label for="ibiNomeVisitante">Seu primeiro nome</label>
+        <input
+          id="ibiNomeVisitante"
+          type="text"
+          maxlength="50"
+          autocomplete="given-name"
+          placeholder="Digite seu nome"
+          required
+        >
+        <button type="submit">
+          Entrar como visitante
+        </button>
+        <p style="font-size:12px;margin-top:12px">
+          Sem senha. Acesso somente ao site público.
+        </p>
+      `;
 
-      const descricaoForm = criar(
-        "p",
-        "Qual é o seu primeiro nome?"
-      );
-
-      const input = criar("input");
-      input.type = "text";
-      input.id = "ibiNomeVisitante";
-      input.placeholder = "Digite seu nome";
-      input.maxLength = 50;
-      input.required = true;
-      input.autocomplete = "given-name";
-
-      const botao = criar(
-        "button",
-        "Entrar como visitante"
-      );
-      botao.type = "submit";
-
-      const observacao = criar(
-        "p",
-        "Não precisa de senha. Você terá acesso ao site público."
-      );
-      observacao.style.fontSize = "12px";
-
-      form.append(
-        tituloForm,
-        descricaoForm,
-        input,
-        botao,
-        observacao
-      );
-
-      escolha.insertAdjacentElement(
-        "afterend",
-        form
-      );
+      escolha.after(form);
 
       form.addEventListener("submit", evento => {
         evento.preventDefault();
 
-        const nomeCompleto = input.value.trim();
+        const nome = $("#ibiNomeVisitante")
+          ?.value.trim().split(/\s+/)[0];
 
-        if (!nomeCompleto) return;
+        if (!nome) return;
 
-        const primeiroNome =
-          nomeCompleto.split(/\s+/)[0];
+        sessionStorage.setItem("ibiVisitanteNome", nome);
+        saudacao(nome);
 
-        sessionStorage.setItem(
-          "ibiVisitanteNome",
-          primeiroNome
-        );
-
-        mostrarNomeVisitante(primeiroNome);
-
-        const inicio = document.querySelector(
-          'nav [data-page="inicio"]'
-        );
-
+        const inicio = $('nav [data-page="inicio"]');
         if (inicio) inicio.click();
 
-        mostrarNomeVisitante(primeiroNome);
-
+        saudacao(nome);
         window.scrollTo(0, 0);
       });
     }
 
-    // MEMBRO E ADMIN USAM O LOGIN ORIGINAL
-    visitante.addEventListener("click", () => {
-      form.hidden = false;
+    // ÁREA SEPARADA PARA SOLICITAR CADASTRO
+    let areaCadastro = $("#ibiCadastroVisitante");
 
-      if (!membro || membro.hidden) {
-        auth.hidden = true;
+    if (!areaCadastro) {
+      areaCadastro = document.createElement("div");
+      areaCadastro.id = "ibiCadastroVisitante";
+      areaCadastro.hidden = true;
+      form.after(areaCadastro);
+    }
+
+    // IMPORTANTE:
+    // O formulário de cadastro original é movido inteiro.
+    // Não colocamos um formulário dentro de outro.
+    function moverCadastroOriginal() {
+      const signup = auth.querySelector("#signupForm");
+
+      if (!signup) return;
+
+      const painelCadastro = signup.closest(".panel");
+      if (!painelCadastro) return;
+
+      if (painelCadastro.parentElement !== areaCadastro) {
+        areaCadastro.append(painelCadastro);
       }
+    }
 
-      grade.querySelectorAll(".ibiCartao")
-        .forEach(botao => {
-          botao.classList.toggle(
-            "ativo",
-            botao === visitante
-          );
-        });
+    // O app.js pode reconstruir os formulários
+    // depois do login ou de uma solicitação.
+    let agendado = false;
+
+    const observador = new MutationObserver(() => {
+      if (agendado) return;
+
+      agendado = true;
+
+      queueMicrotask(() => {
+        agendado = false;
+        moverCadastroOriginal();
+      });
     });
 
-    grade.querySelectorAll(".ibiCartao")
-      .forEach(botao => {
-        if (botao === visitante) return;
+    observador.observe(auth, {
+      childList: true,
+      subtree: true
+    });
 
-        botao.addEventListener("click", () => {
-          form.hidden = true;
-          auth.hidden = false;
+    moverCadastroOriginal();
 
-          grade.querySelectorAll(".ibiCartao")
-            .forEach(item => {
-              item.classList.toggle(
-                "ativo",
-                item === botao
-              );
-            });
-        });
+    const orientacao = escolha.querySelector(
+      ".ibiTopoPainel + .ibiGrade + p"
+    );
+
+    function escolher(botao, tipo) {
+      grade.querySelectorAll(".ibiCartao").forEach(item => {
+        item.classList.toggle("ativo", item === botao);
       });
 
-    // Oculta o login até uma escolha, apenas
-    // para quem ainda não está autenticado.
+      const eVisitante = tipo === "visitante";
+
+      form.hidden = !eVisitante;
+      areaCadastro.hidden = !eVisitante;
+
+      // Login somente para Membro ou Administrador.
+      if (!membro || membro.hidden) {
+        auth.hidden = eVisitante;
+      }
+
+      if (orientacao) {
+        orientacao.textContent = eVisitante
+          ? "Conheça a igreja ou solicite seu cadastro."
+          : "Use seu e-mail e senha cadastrados.";
+      }
+
+      if (!eVisitante) {
+        sessionStorage.setItem("ibiTipoAcesso", tipo);
+      }
+    }
+
+    visitante.addEventListener("click", () => {
+      escolher(visitante, "visitante");
+    });
+
+    grade.querySelectorAll(".ibiCartao").forEach(botao => {
+      if (botao === visitante) return;
+
+      const texto = botao.textContent.toLowerCase();
+      const tipo = texto.includes("administrador")
+        ? "admin"
+        : "membro";
+
+      botao.addEventListener("click", () => {
+        escolher(botao, tipo);
+      });
+    });
+
+    // Na primeira visita, mostra só os 3 cartões.
+    form.hidden = true;
+    areaCadastro.hidden = true;
+
     if (!membro || membro.hidden) {
       auth.hidden = true;
     }
 
-    recuperarNomeVisitante();
+    recuperarVisitante();
   }
 
-  // DEVOCIONAL: APENAS DATA, REFERÊNCIA E RESUMO
+  // DEVOCIONAL: DATA + REFERÊNCIA + RESUMO
   function configurarDevocional() {
     const caixa = $("#ibiDevocional");
     if (!caixa) return;
 
-    const referencia =
-      caixa.querySelector(".ibiReferencia") ||
-      caixa.querySelector(".ibiRef") ||
-      caixa.querySelector("h2");
+    const referencia = caixa.querySelector(
+      ".ibiReferencia, .ibiRef"
+    );
 
-    const resumo =
-      caixa.querySelector(".ibiResumo") ||
-      caixa.querySelector("p");
+    const resumo = caixa.querySelector("p");
 
     if (!referencia || !resumo) return;
 
-    const textoReferencia =
-      referencia.textContent.trim();
+    const textoRef = referencia.textContent.trim();
+    const textoResumo = resumo.textContent.trim();
 
-    const textoResumo =
-      resumo.textContent.trim();
-
-    if (!textoReferencia || !textoResumo) return;
+    if (!textoRef || !textoResumo) return;
 
     caixa.replaceChildren();
 
-    const topo = criar("div", undefined, "ibiTopoDev");
+    const topo = document.createElement("div");
+    topo.className = "ibiTopoDev";
 
-    const titulo = criar(
-      "strong",
-      "📖 Devocional do Dia"
-    );
+    const titulo = document.createElement("strong");
+    titulo.textContent = "📖 Devocional do Dia";
 
-    const data = criar(
-      "span",
-      dataBrasil(),
-      "ibiData"
-    );
-    data.id = "ibiDataDevocional";
+    const data = document.createElement("span");
+    data.className = "ibiData";
+    data.textContent = dataBrasil();
 
     topo.append(titulo, data);
 
-    const ref = criar(
-      "span",
-      textoReferencia,
-      "ibiRef"
-    );
+    const ref = document.createElement("span");
+    ref.className = "ibiRef";
+    ref.textContent = textoRef;
 
-    const reflexao = criar(
-      "p",
-      textoResumo,
-      "ibiResumo"
-    );
+    const reflexao = document.createElement("p");
+    reflexao.className = "ibiResumo";
+    reflexao.textContent = textoResumo;
 
     caixa.append(topo, ref, reflexao);
 
-    // Esconde somente o aviso antigo
-    // de "Em breve", preservando a página.
-    const pagina = $("#devocionais");
-
-    if (pagina) {
-      pagina.querySelectorAll(".panel")
-        .forEach(painel => {
-          if (
-            painel.textContent.includes(
-              "Novos devocionais serão publicados"
-            )
-          ) {
-            painel.hidden = true;
-          }
-        });
-    }
+    $("#devocionais")?.querySelectorAll(".panel")
+      .forEach(painel => {
+        if (painel.textContent.includes(
+          "Novos devocionais serão publicados"
+        )) {
+          painel.hidden = true;
+        }
+      });
   }
 
-  // INICIALIZAÇÃO
   function iniciar() {
-    const entrar = document.querySelector(
-      'nav [data-page="membros"]'
-    );
+    const entrar = $('nav [data-page="membros"]');
 
-    if (entrar) {
-      entrar.textContent = "👤 ENTRAR";
-    }
+    if (entrar) entrar.textContent = "👤 ENTRAR";
 
     configurarEntrada();
     configurarDevocional();
 
-    // Verifica periodicamente a virada do dia.
-    // Se mudar a data, recarrega o devocional.
-    let ultimaData = dataBrasil();
+    document.querySelectorAll(
+      'nav [data-page="inicio"]'
+    ).forEach(botao => {
+      botao.addEventListener("click", recuperarVisitante);
+    });
+
+    let diaAnterior = dataBrasil();
 
     setInterval(() => {
-      const hoje = dataBrasil();
+      const diaAtual = dataBrasil();
 
-      if (hoje !== ultimaData) {
-        ultimaData = hoje;
+      if (diaAtual !== diaAnterior) {
+        diaAnterior = diaAtual;
 
-        // Evita interromper quem estiver
-        // preenchendo algum formulário.
-        if (
-          document.getElementById("devocionais")
-            ?.classList.contains("active")
-        ) {
-          window.location.reload();
+        // Só atualiza a página automaticamente
+        // se a pessoa estiver lendo o devocional.
+        if ($("#devocionais")?.classList.contains("active")) {
+          location.reload();
         }
       }
     }, 60000);
-
-    // Recupera a saudação de visitante se
-    // retornar à página inicial.
-    if (entrar) {
-      document.querySelectorAll(
-        'nav [data-page="inicio"]'
-      ).forEach(botao => {
-        botao.addEventListener(
-          "click",
-          recuperarNomeVisitante
-        );
-      });
-    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener(
-      "DOMContentLoaded",
-      iniciar
-    );
+    document.addEventListener("DOMContentLoaded", iniciar);
   } else {
     iniciar();
   }
-
 })();
