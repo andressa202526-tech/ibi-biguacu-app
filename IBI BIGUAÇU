@@ -1,0 +1,105 @@
+
+/* IBI BIGUAÇU - NAVEGAÇÃO E SAUDAÇÃO */
+
+(() => {
+  const buttons = document.querySelectorAll("[data-page]");
+
+  function abrirPagina(pagina) {
+    if (!document.getElementById(pagina)) return;
+
+    document.querySelectorAll(".page").forEach(el => {
+      el.classList.toggle(
+        "active",
+        el.id === pagina
+      );
+    });
+
+    document.querySelectorAll("nav button").forEach(el => {
+      el.classList.toggle(
+        "selected",
+        el.dataset.page === pagina
+      );
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      abrirPagina(button.dataset.page);
+    });
+  });
+
+  async function atualizarSaudacao() {
+    const el = document.getElementById("saudacao");
+    const cfg = window.IBI_CONFIG || {};
+
+    if (!el) return;
+
+    el.textContent = "Que bom ter você aqui!";
+
+    if (
+      !window.supabase ||
+      !cfg.supabaseUrl ||
+      !cfg.supabaseAnonKey ||
+      cfg.supabaseAnonKey.includes("COLE")
+    ) {
+      return;
+    }
+
+    try {
+      const client = window.supabase.createClient(
+        cfg.supabaseUrl,
+        cfg.supabaseAnonKey
+      );
+
+      const { data } = await client.auth.getUser();
+      const usuario = data?.user;
+
+      if (!usuario) return;
+
+      let nome =
+        usuario.user_metadata?.display_name || "";
+
+      const { data: perfil } = await client
+        .from("profiles")
+        .select("display_name")
+        .eq("id", usuario.id)
+        .maybeSingle();
+
+      if (perfil?.display_name) {
+        nome = perfil.display_name;
+      }
+
+      const primeiroNome = String(nome)
+        .trim()
+        .split(/\s+/)[0]
+        .slice(0, 50);
+
+      el.textContent = primeiroNome
+        ? `Olá, ${primeiroNome}! Que bom ter você aqui.`
+        : "Que bom ter você aqui!";
+
+    } catch (erro) {
+      console.warn(
+        "Não foi possível carregar a saudação:",
+        erro
+      );
+    }
+  }
+
+  atualizarSaudacao();
+
+  window.addEventListener(
+    "pageshow",
+    atualizarSaudacao
+  );
+
+  window.addEventListener(
+    "focus",
+    atualizarSaudacao
+  );
+})();
