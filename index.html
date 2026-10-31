@@ -27,7 +27,8 @@
 <header>
   <div class="header-inner">
     <div class="brand">
-      <img class="logo" src="icons/icon-192.png"
+      <img class="logo"
+           src="icons/icon-192.png"
            alt="Logo IBI Biguaçu"
            onerror="this.style.display='none'">
       <div>
@@ -46,7 +47,7 @@
       <button type="button" data-page="galeria">Galeria</button>
       <button type="button" data-page="contribuir">Contribuir</button>
       <button type="button" data-page="contato">Contato</button>
-      <button type="button" data-page="membros" class="nav-login">ENTRAR</button>
+      <button type="button" data-page="membros" class="nav-login">👤 ENTRAR</button>
     </nav>
   </div>
 </header>
@@ -55,7 +56,7 @@
 
 <div id="flash" class="flash" role="status" aria-live="polite" hidden></div>
 
-<!-- INÍCIO -->
+<!-- PÁGINA INICIAL -->
 <section id="inicio" class="page active">
   <div class="hero">
     <div class="hero-content">
@@ -65,12 +66,8 @@
       <p>Um lugar de fé, comunhão e crescimento na Palavra de Deus. Sua família é bem-vinda!</p>
 
       <div class="hero-actions">
-        <button type="button" class="button accent" data-page="agenda">
-          Nossos cultos
-        </button>
-        <button type="button" class="button outline" data-page="contato">
-          Planeje sua visita
-        </button>
+        <button type="button" class="button accent" data-page="agenda">Nossos cultos</button>
+        <button type="button" class="button outline" data-page="contato">Planeje sua visita</button>
       </div>
     </div>
   </div>
@@ -94,14 +91,17 @@
         <strong>📅 Agenda</strong>
         <span>Cultos e programações</span>
       </button>
+
       <button type="button" data-page="ministerios">
         <strong>🤝 Ministérios</strong>
         <span>Conheça nossa igreja</span>
       </button>
+
       <button type="button" data-page="devocionais">
         <strong>📖 Devocional diário</strong>
         <span>Uma reflexão a cada dia</span>
       </button>
+
       <button type="button" data-page="membros">
         <strong>👤 ENTRAR</strong>
         <span>Visitante, membro ou administrador</span>
@@ -113,6 +113,7 @@
         <h2>Próximos eventos</h2>
         <div id="eventosInicio" class="stack">Carregando...</div>
       </div>
+
       <div class="panel">
         <h2>Transmissões e redes</h2>
         <div id="links"></div>
@@ -126,7 +127,6 @@
   <div class="container interior">
     <span class="kicker">QUEM SOMOS</span>
     <h1>Uma igreja, uma família.</h1>
-
     <div class="panel">
       <h2>Bem-vindo à IBI Biguaçu</h2>
       <p>Somos uma comunidade que deseja crescer na fé, viver a comunhão e compartilhar o amor de Jesus.</p>
@@ -185,14 +185,12 @@
   </div>
 </section>
 
-<!-- DEVOCIONAIS -->
+<!-- DEVOCIONAL DIÁRIO -->
 <section id="devocionais" class="page">
   <div class="container interior">
     <span class="kicker">PALAVRA DE DEUS</span>
     <h1>Devocional diário</h1>
     <p class="muted">Uma palavra para fortalecer sua caminhada com Deus.</p>
-
-    <!-- ibi-paineis.js cria o conteúdo diário aqui -->
   </div>
 </section>
 
@@ -204,17 +202,20 @@
 
     <div class="panel">
       <h2>Acompanhe nossa igreja</h2>
-
       <div class="social-links">
-        <a class="linktile" href="https://www.instagram.com/ibibiguacu/" target="_blank" rel="noopener">
+        <a class="linktile"
+           href="https://www.instagram.com/ibibiguacu/"
+           target="_blank" rel="noopener">
           Instagram — @ibibiguacu
         </a>
-
-        <a class="linktile" href="https://www.youtube.com/@ibibiguacu" target="_blank" rel="noopener">
+        <a class="linktile"
+           href="https://www.youtube.com/@ibibiguacu"
+           target="_blank" rel="noopener">
           YouTube — @ibibiguacu
         </a>
-
-        <a class="linktile" href="https://www.facebook.com/ibibigucu" target="_blank" rel="noopener">
+        <a class="linktile"
+           href="https://www.facebook.com/ibibigucu"
+           target="_blank" rel="noopener">
           Facebook — IBI Biguaçu
         </a>
       </div>
@@ -265,6 +266,7 @@
         </a>
 
         <h3>Redes sociais</h3>
+
         <div class="social-links">
           <a href="https://www.instagram.com/ibibiguacu/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.facebook.com/ibibigucu" target="_blank" rel="noopener">Facebook</a>
@@ -284,7 +286,7 @@
   </div>
 </section>
 
-<!-- ANIVERSARIANTES: CONTEÚDO USADO PELO PAINEL DE MEMBROS -->
+<!-- ANIVERSARIANTES: CONTEÚDO INTERNO -->
 <section id="aniversarios" class="page" hidden>
   <div class="container interior">
     <h1>Aniversariantes do mês</h1>
@@ -292,17 +294,18 @@
   </div>
 </section>
 
-<!-- LOGIN, MEMBROS E ADMINISTRAÇÃO -->
+<!-- ENTRAR: VISITANTE, MEMBRO OU ADMIN -->
 <section id="membros" class="page">
   <div class="container interior">
     <span class="kicker">ACESSO EXCLUSIVO</span>
     <h1>Área de membros</h1>
 
-    <!-- LOGIN ORIGINAL -->
+    <!-- O app.js cria o login e o cadastro -->
     <div id="authArea"></div>
 
-    <!-- ÁREA DE QUEM FEZ LOGIN -->
     <div id="memberArea" hidden>
+
+      <!-- PERFIL ORIGINAL -->
       <div class="panel">
         <h2>Meu perfil</h2>
         <p id="memberStatus"></p>
@@ -337,7 +340,7 @@
         </form>
       </div>
 
-      <!-- CONTEÚDOS DE MEMBROS APROVADOS -->
+      <!-- ÁREA PARA MEMBROS APROVADOS -->
       <div id="approvedArea" hidden>
         <div class="panel">
           <h2>📬 Minhas mensagens</h2>
@@ -350,10 +353,12 @@
         </div>
       </div>
 
-      <!-- ADMINISTRAÇÃO ORIGINAL -->
+      <!-- PAINEL ADMINISTRATIVO ORIGINAL -->
       <div id="adminArea" class="panel" hidden>
         <h2>🛠️ Painel administrativo</h2>
-        <p class="muted">Gerencie avisos, eventos e membros.</p>
+        <p class="muted">
+          Gerencie avisos, eventos, fotos e membros.
+        </p>
 
         <h3>Novo aviso</h3>
         <form id="noticeForm">
@@ -397,6 +402,7 @@
       <button type="button" id="logout" class="button secondary">
         Sair da conta
       </button>
+
     </div>
   </div>
 </section>
@@ -409,13 +415,13 @@
   <small>Biguaçu — Santa Catarina</small>
 </footer>
 
-<!-- BIBLIOTECA SUPABASE -->
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
-<!-- CONEXÃO ORIGINAL -->
+<!-- CONEXÃO -->
 <script src="config.js?v=111"></script>
 
-<!-- NAVEGAÇÃO ORIGINAL -->
+<!-- NAVEGAÇÃO -->
 <script>
 (function () {
   function abrir(id) {
@@ -438,10 +444,10 @@
 })();
 </script>
 
-<!-- APLICATIVO ORIGINAL -->
+<!-- FUNÇÕES ORIGINAIS DO APLICATIVO -->
 <script src="app.js?v=111"></script>
 
-<!-- SAUDAÇÃO PARA MEMBROS CADASTRADOS -->
+<!-- SAUDAÇÃO PARA MEMBROS -->
 <script>
 (function () {
   const destino = document.getElementById("saudacao");
@@ -454,11 +460,11 @@
     try {
       if (typeof db === "undefined" || !db) return;
 
-      const { data } = await db.auth.getUser();
+      const {data} = await db.auth.getUser();
       const user = data?.user;
       if (!user) return;
 
-      const { data: perfil } = await db
+      const {data:perfil} = await db
         .from("profiles")
         .select("display_name")
         .eq("id", user.id)
@@ -491,14 +497,14 @@
 })();
 </script>
 
-<!-- TROCAR FOTOS E PERSONALIZAÇÃO -->
+<!-- PERSONALIZAÇÃO E FOTOS -->
 <script src="personalizacao.js?v=111"></script>
 
-<!-- CAIXINHAS DE MEMBROS, ADMIN E REFLEXÕES -->
+<!-- PAINÉIS DE MEMBROS E DEVOCIONAL -->
 <script src="ibi-paineis.js?v=4"></script>
 
-<!-- TRÊS ACESSOS + DEVOCIONAL COM DATA -->
-<script src="ajustes-finais.js?v=1"></script>
+<!-- VISITANTE, MEMBRO, ADMIN E SOLICITAR CADASTRO -->
+<script src="ajustes-finais.js?v=3"></script>
 
 </body>
 </html>
