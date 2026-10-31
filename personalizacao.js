@@ -1,13 +1,12 @@
 
-/* IBI BIGUAÇU - PERSONALIZAÇÃO
-   Usa a conexão autenticada do app.js.
-   As permissões também devem existir no Supabase.
+/* IBI BIGUAÇU - PERSONALIZAÇÃO V108
+   Logo, fundo, ministérios, textos e galeria.
+   Usa o login do app.js.
 */
-
 (function () {
   "use strict";
 
-  const $ = seletor => document.querySelector(seletor);
+  const $ = s => document.querySelector(s);
 
   const ministerios = [
     ["kids", "Kids"],
@@ -23,37 +22,32 @@
   const imagens = [
     ["logo", "Logo da igreja"],
     ["banner", "Imagem de fundo da página inicial"],
-    ...ministerios.map(([id, nome]) => [
-      id, "Foto do ministério: " + nome
-    ])
+    ...ministerios.map(([id, nome]) =>
+      [id, "Foto do ministério: " + nome]
+    )
   ];
 
-  let adminAutorizado = false;
-
-  function cliente() {
+  // MESMA CONEXÃO DO APLICATIVO
+  function api() {
     try {
-      if (typeof db !== "undefined" && db) {
-        return db;
-      }
-    } catch (erro) {
-      console.warn("Conexão indisponível:", erro);
+      return typeof db !== "undefined" ? db : null;
+    } catch {
+      return null;
     }
-
-    return null;
   }
 
   function criar(tag, texto = "") {
-    const elemento = document.createElement(tag);
-    elemento.textContent = texto;
-    return elemento;
+    const el = document.createElement(tag);
+    el.textContent = texto;
+    return el;
   }
 
   function informar(texto, erro = false) {
-    const elemento = $("#personalStatus");
-    if (!elemento) return;
+    const el = $("#personalStatus");
+    if (!el) return;
 
-    elemento.textContent = texto;
-    elemento.style.color = erro ? "#b42330" : "#147047";
+    el.textContent = texto;
+    el.style.color = erro ? "#b42330" : "#137547";
   }
 
   function urlSegura(valor) {
@@ -65,98 +59,96 @@
     }
   }
 
-  // VERIFICAR O ADMINISTRADOR PELO MESMO LOGIN
+  // AUTENTICAÇÃO
+  async function verificarAdmin(silencioso = false) {
+    const client = api();
 
-  async function verificarAdmin() {
-    const api = cliente();
-
-    if (!api) {
-      informar("Conexão com Supabase indisponível.", true);
+    if (!client) {
+      if (!silencioso) informar(
+        "Conexão com Supabase indisponível.",
+        true
+      );
       return false;
     }
 
-    const { data: auth, error: erroAuth } =
-      await api.auth.getUser();
+    try {
+      const { data: auth, error: erroAuth } =
+        await client.auth.getUser();
 
-    if (erroAuth || !auth?.user) {
-      adminAutorizado = false;
-      informar("Entre na sua conta de administradora.", true);
-      return false;
-    }
+      if (erroAuth || !auth?.user) {
+        if (!silencioso) informar(
+          "Entre novamente como administradora.",
+          true
+        );
+        return false;
+      }
 
-    const { data: perfil, error: erroPerfil } =
-      await api
+      const { data: perfil, error } = await client
         .from("profiles")
         .select("role,approved")
         .eq("id", auth.user.id)
         .maybeSingle();
 
-    if (erroPerfil) {
-      adminAutorizado = false;
-      informar(
-        "Erro ao verificar permissão: " + erroPerfil.message,
+      if (error) throw error;
+
+      const permitido =
+        perfil?.role === "admin" &&
+        perfil?.approved === true;
+
+      if (!permitido && !silencioso) {
+        informar("Conta sem permissão administrativa.", true);
+      }
+
+      return permitido;
+
+    } catch (erro) {
+      if (!silencioso) informar(
+        "Erro na autenticação: " + erro.message,
         true
       );
       return false;
     }
-
-    adminAutorizado =
-      perfil?.role === "admin" &&
-      perfil?.approved === true;
-
-    if (!adminAutorizado) {
-      informar(
-        "Sua conta ainda não possui permissão administrativa.",
-        true
-      );
-    }
-
-    return adminAutorizado;
   }
 
-  // CARREGAR PERSONALIZAÇÃO PÚBLICA
-
+  // APARÊNCIA DO SITE
   async function carregarAparencia() {
-    const api = cliente();
-    if (!api) return {};
+    const client = api();
+    if (!client) return {};
 
-    const { data, error } = await api
+    const { data, error } = await client
       .from("ibi_aparencia")
       .select("chave,valor");
 
     if (error) {
-      console.warn("Erro ao buscar aparência:", error.message);
+      console.warn("Aparência:", error.message);
       return {};
     }
 
-    const config = {};
-
-    for (const registro of data || []) {
-      config[registro.chave] = registro.valor;
-    }
-
-    return config;
+    return Object.fromEntries(
+      (data || []).map(r => [r.chave, r.valor])
+    );
   }
 
   function aplicarAparencia(config) {
     const logo = $("header .logo");
+    const logoUrl = urlSegura(config.logo);
 
-    if (logo && urlSegura(config.logo)) {
-      logo.src = urlSegura(config.logo);
+    if (logo && logoUrl) {
+      logo.src = logoUrl;
     }
 
-    const banner = $("#inicio .hero");
-    const imagemBanner = urlSegura(config.banner);
+    const hero = $("#inicio .hero");
+    const banner = urlSegura(config.banner);
 
-    if (banner && imagemBanner) {
-      banner.style.backgroundImage =
-        "linear-gradient(90deg," +
-        "rgba(4,15,41,.88)," +
-        "rgba(4,21,54,.35))," +
-        'url("' + imagemBanner + '")';
+    if (hero && banner) {
+      hero.style.backgroundImage =
+        "linear-gradient(90deg, " +
+        "rgba(4,15,41,.88), " +
+        "rgba(4,21,54,.35)), " +
+        'url("' + banner + '")';
 
-      banner.style.backgroundSize = "cover";
-      banner.style.backgroundPosition = "center";
+      hero.style.backgroundSize = "cover";
+      hero.style.backgroundPosition = "center";
     }
 
     const titulo = $("#inicio .hero h1");
@@ -165,7 +157,9 @@
       titulo.textContent = config.titulo;
     }
 
-    const subtitulo = $("#inicio .hero-content p:not(#saudacao)");
+    const subtitulo = $(
+      "#inicio .hero-content p:not(#saudacao)"
+    ) || $("#inicio .hero p:not(#saudacao)");
 
     if (subtitulo && config.subtitulo) {
       subtitulo.textContent = config.subtitulo;
@@ -203,33 +197,28 @@
     });
   }
 
-  function preencherTextos(config) {
+  async function atualizarAparencia() {
+    const config = await carregarAparencia();
+    aplicarAparencia(config);
+
     const titulo = $("#personalTitulo");
     const subtitulo = $("#personalSubtitulo");
 
-    if (titulo && config.titulo) {
-      titulo.value = config.titulo;
+    if (titulo && document.activeElement !== titulo) {
+      titulo.value = config.titulo || "";
     }
 
-    if (subtitulo && config.subtitulo) {
-      subtitulo.value = config.subtitulo;
+    if (subtitulo && document.activeElement !== subtitulo) {
+      subtitulo.value = config.subtitulo || "";
     }
   }
 
-  async function atualizarSite() {
-    const config = await carregarAparencia();
-    aplicarAparencia(config);
-    preencherTextos(config);
-    await carregarGaleria();
-  }
-
-  // ENVIAR IMAGEM PARA SUPABASE STORAGE
-
+  // UPLOAD
   async function enviarImagem(arquivo, pasta) {
-    const api = cliente();
+    const client = api();
 
-    if (!api) {
-      throw new Error("Conexão indisponível.");
+    if (!client) {
+      throw new Error("Supabase indisponível.");
     }
 
     const formatos = {
@@ -239,15 +228,11 @@
     };
 
     if (!arquivo || !formatos[arquivo.type]) {
-      throw new Error(
-        "Selecione uma imagem PNG, JPG ou WebP."
-      );
+      throw new Error("Escolha PNG, JPG ou WebP.");
     }
 
     if (arquivo.size > 5 * 1024 * 1024) {
-      throw new Error(
-        "A imagem precisa ter no máximo 5 MB."
-      );
+      throw new Error("Imagem maior que 5 MB.");
     }
 
     const caminho =
@@ -255,7 +240,7 @@
       crypto.randomUUID() +
       "." + formatos[arquivo.type];
 
-    const { error } = await api.storage
+    const { error } = await client.storage
       .from("ibi-imagens")
       .upload(caminho, arquivo, {
         contentType: arquivo.type,
@@ -264,7 +249,7 @@
 
     if (error) throw error;
 
-    const { data } = api.storage
+    const { data } = client.storage
       .from("ibi-imagens")
       .getPublicUrl(caminho);
 
@@ -274,44 +259,49 @@
     };
   }
 
-  // SALVAR LOGO, FUNDO, FOTOS E TEXTOS
-
+  // SALVAR PERSONALIZAÇÃO
   async function salvarPersonalizacao(evento) {
     evento.preventDefault();
 
+    // IMPORTANTE: capturar o formulário ANTES do await
+    const form = evento.currentTarget;
+    const botao = form.querySelector(
+      'button[type="submit"]'
+    );
+
     if (!(await verificarAdmin())) return;
 
-    const api = cliente();
-    const form = evento.currentTarget;
-    const botao = form.querySelector('button[type="submit"]');
+    const client = api();
 
-    botao.disabled = true;
-    informar("Salvando alterações...");
+    if (botao) botao.disabled = true;
+    informar("Salvando personalização...");
 
     try {
-      const campos = form.querySelectorAll("[data-chave]");
+      const campos = form.querySelectorAll(
+        "[data-chave]"
+      );
+
       let alteracoes = 0;
 
       for (const campo of campos) {
         let valor = "";
 
         if (campo.type === "file") {
-          const arquivo = campo.files[0];
-
-          if (!arquivo) continue;
+          if (!campo.files?.length) continue;
 
           const imagem = await enviarImagem(
-            arquivo,
+            campo.files[0],
             campo.dataset.chave
           );
 
           valor = imagem.url;
+
         } else {
           valor = campo.value.trim();
           if (!valor) continue;
         }
 
-        const { error } = await api
+        const { error } = await client
           .from("ibi_aparencia")
           .upsert({
             chave: campo.dataset.chave,
@@ -325,7 +315,7 @@
         alteracoes++;
       }
 
-      if (alteracoes === 0) {
+      if (!alteracoes) {
         informar("Selecione uma imagem ou preencha um texto.");
         return;
       }
@@ -333,50 +323,71 @@
       form.querySelectorAll('input[type="file"]')
         .forEach(input => input.value = "");
 
+      await atualizarAparencia();
       informar("Personalização salva com sucesso!");
-      await atualizarSite();
 
     } catch (erro) {
+      console.error("Erro ao salvar:", erro);
       informar(
         "Erro ao salvar: " + erro.message,
         true
       );
 
     } finally {
-      botao.disabled = false;
+      if (botao) botao.disabled = false;
     }
   }
 
-  // GALERIA DE FOTOS
+  // GALERIA PÚBLICA
+  function criarGaleriaPublica() {
+    if ($("#ibiGaleriaPublica")) return;
+
+    const pagina = $("#galeria") || $("#inicio");
+    if (!pagina) return;
+
+    const area = criar("div");
+    area.id = "ibiGaleriaPublica";
+    area.className = "gallery-grid";
+
+    if ($("#galeria")) {
+      pagina.append(area);
+    } else {
+      const secao = criar("section");
+      secao.className = "panel";
+      secao.append(criar("h2", "Galeria da IBI Biguaçu"));
+      secao.append(area);
+      pagina.append(secao);
+    }
+  }
 
   async function carregarGaleria() {
     const area = $("#ibiGaleriaPublica");
-    const api = cliente();
+    const client = api();
 
-    if (!area || !api) return;
+    if (!area || !client) return;
 
-    const { data, error } = await api
+    const { data, error } = await client
       .from("ibi_galeria")
       .select("id,url,legenda")
       .order("criado_em", { ascending: false })
       .limit(40);
 
     if (error) {
-      console.warn("Erro na galeria:", error.message);
+      console.warn("Galeria:", error.message);
       return;
     }
 
     area.replaceChildren();
 
     for (const foto of data || []) {
-      const url = urlSegura(foto.url);
-      if (!url) continue;
+      const src = urlSegura(foto.url);
+      if (!src) continue;
 
       const figure = criar("figure");
       const img = criar("img");
 
-      img.src = url;
-      img.alt = foto.legenda || "Foto da IBI Biguaçu";
+      img.src = src;
+      img.alt = foto.legenda || "Foto da igreja";
       img.loading = "lazy";
 
       Object.assign(img.style, {
@@ -403,32 +414,37 @@
     }
   }
 
+  // PUBLICAR FOTO
   async function publicarFoto(evento) {
     evento.preventDefault();
 
-    if (!(await verificarAdmin())) return;
-
+    // Corrige o mesmo erro de currentTarget
     const form = evento.currentTarget;
+    const arquivo = form.querySelector(
+      "#personalFotoGaleria"
+    )?.files[0];
 
-    const arquivo =
-      form.querySelector("#personalFotoGaleria").files[0];
+    const legenda = form.querySelector(
+      "#personalLegenda"
+    )?.value.trim() || "";
 
-    const legenda =
-      form.querySelector("#personalLegenda").value.trim();
+    const autorizacao = form.querySelector(
+      "#personalAutorizacao"
+    )?.checked;
 
-    const autorizacao =
-      form.querySelector("#personalAutorizacao").checked;
+    const botao = form.querySelector(
+      'button[type="submit"]'
+    );
 
     if (!autorizacao) {
-      informar(
-        "Confirme a autorização para publicar a foto.",
-        true
-      );
+      informar("Confirme a autorização da foto.", true);
       return;
     }
 
-    const botao = form.querySelector('button[type="submit"]');
-    botao.disabled = true;
+    if (!(await verificarAdmin())) return;
+
+    if (botao) botao.disabled = true;
+    informar("Enviando foto...");
 
     try {
       const imagem = await enviarImagem(
@@ -436,7 +452,7 @@
         "galeria"
       );
 
-      const { error } = await cliente()
+      const { error } = await api()
         .from("ibi_galeria")
         .insert({
           url: imagem.url,
@@ -448,29 +464,31 @@
       if (error) throw error;
 
       form.reset();
-      informar("Foto publicada com sucesso!");
-
       await carregarGaleria();
       await carregarGaleriaAdmin();
 
+      informar("Foto publicada com sucesso!");
+
     } catch (erro) {
+      console.error("Erro na galeria:", erro);
       informar(
-        "Erro ao publicar foto: " + erro.message,
+        "Erro ao publicar: " + erro.message,
         true
       );
 
     } finally {
-      botao.disabled = false;
+      if (botao) botao.disabled = false;
     }
   }
 
+  // LISTA DE FOTOS DO ADMINISTRADOR
   async function carregarGaleriaAdmin() {
-    if (!(await verificarAdmin())) return;
+    if (!(await verificarAdmin(true))) return;
 
     const area = $("#ibiGaleriaAdmin");
     if (!area) return;
 
-    const { data, error } = await cliente()
+    const { data, error } = await api()
       .from("ibi_galeria")
       .select("id,legenda,caminho")
       .order("criado_em", { ascending: false })
@@ -492,51 +510,49 @@
       linha.style.padding = "12px";
       linha.style.borderBottom = "1px solid #ddd";
 
-      const botao = criar("button", "Excluir foto");
-      botao.type = "button";
-      botao.className = "button secondary";
+      const excluir = criar("button", "Excluir foto");
+      excluir.type = "button";
+      excluir.className = "button secondary";
 
-      botao.addEventListener("click", async () => {
-        if (!confirm("Deseja excluir esta foto?")) return;
+      excluir.addEventListener("click", async () => {
+        if (!confirm("Excluir esta foto?")) return;
         if (!(await verificarAdmin())) return;
 
-        const resposta = await cliente()
+        const { error } = await api()
           .from("ibi_galeria")
           .delete()
           .eq("id", foto.id);
 
-        if (resposta.error) {
-          informar(resposta.error.message, true);
+        if (error) {
+          informar(error.message, true);
           return;
         }
 
         if (foto.caminho) {
-          const remocao = await cliente()
+          const { error: erroStorage } = await api()
             .storage
             .from("ibi-imagens")
             .remove([foto.caminho]);
 
-          if (remocao.error) {
-            informar(
-              "Registro excluído, mas a imagem ainda " +
-              "está no armazenamento: " +
-              remocao.error.message,
-              true
+          if (erroStorage) {
+            console.warn(
+              "Imagem não removida:",
+              erroStorage.message
             );
           }
         }
 
         await carregarGaleria();
         await carregarGaleriaAdmin();
+        informar("Foto excluída!");
       });
 
-      linha.append(botao);
+      linha.append(excluir);
       area.append(linha);
     }
   }
 
-  // CONSTRUIR FORMULÁRIOS
-
+  // INTERFACE
   function campo(rotulo, input) {
     const label = criar("label");
 
@@ -547,8 +563,8 @@
     titulo.style.display = "block";
 
     input.style.display = "block";
-    input.style.width = "100%";
     input.style.marginTop = "7px";
+    input.style.width = "100%";
 
     label.append(titulo, input);
     return label;
@@ -556,7 +572,6 @@
 
   function criarPainel() {
     const admin = $("#adminArea");
-
     if (!admin || $("#ibiPersonalPanel")) return;
 
     const painel = criar("section");
@@ -570,8 +585,8 @@
     painel.append(
       criar(
         "p",
-        "Altere a logo, o fundo, os ministérios, " +
-        "os textos e a galeria pelo celular."
+        "Altere logo, fundo, fotos dos ministérios, " +
+        "textos e galeria pelo celular."
       )
     );
 
@@ -594,7 +609,7 @@
     titulo.dataset.chave = "titulo";
 
     form.append(
-      campo("Título da página inicial", titulo)
+      campo("Título principal", titulo)
     );
 
     const subtitulo = criar("input");
@@ -614,24 +629,25 @@
 
     salvar.type = "submit";
     salvar.className = "button";
-
     form.append(salvar);
+
     painel.append(form);
 
+    // GALERIA
     painel.append(
       criar("h3", "📷 Galeria de fotos")
     );
 
-    const formGaleria = criar("form");
-    formGaleria.id = "ibiGaleriaForm";
+    const galeriaForm = criar("form");
+    galeriaForm.id = "ibiGaleriaForm";
 
     const foto = criar("input");
     foto.type = "file";
-    foto.accept = "image/png,image/jpeg,image/webp";
     foto.id = "personalFotoGaleria";
+    foto.accept = "image/png,image/jpeg,image/webp";
     foto.required = true;
 
-    formGaleria.append(
+    galeriaForm.append(
       campo("Selecionar foto", foto)
     );
 
@@ -640,7 +656,7 @@
     legenda.id = "personalLegenda";
     legenda.maxLength = 180;
 
-    formGaleria.append(
+    galeriaForm.append(
       campo("Legenda da foto", legenda)
     );
 
@@ -649,15 +665,15 @@
     autorizacao.id = "personalAutorizacao";
     autorizacao.required = true;
 
-    const labelAutorizacao = criar("label");
-    labelAutorizacao.append(
+    const label = criar("label");
+    label.append(
       autorizacao,
       document.createTextNode(
         " Confirmo que tenho autorização para publicar."
       )
     );
 
-    formGaleria.append(labelAutorizacao);
+    galeriaForm.append(label);
 
     const publicar = criar(
       "button",
@@ -667,18 +683,18 @@
     publicar.type = "submit";
     publicar.className = "button";
 
-    formGaleria.append(publicar);
-    painel.append(formGaleria);
+    galeriaForm.append(publicar);
+    painel.append(galeriaForm);
 
     const lista = criar("div");
     lista.id = "ibiGaleriaAdmin";
     painel.append(lista);
 
-    const resultado = criar("p");
-    resultado.id = "personalStatus";
-    resultado.setAttribute("role", "status");
+    const mensagem = criar("p");
+    mensagem.id = "personalStatus";
+    mensagem.setAttribute("role", "status");
+    painel.append(mensagem);
 
-    painel.append(resultado);
     admin.append(painel);
 
     form.addEventListener(
@@ -686,20 +702,21 @@
       salvarPersonalizacao
     );
 
-    formGaleria.addEventListener(
+    galeriaForm.addEventListener(
       "submit",
       publicarFoto
     );
   }
 
-  // INICIALIZAÇÃO
-
+  // INICIAR
   async function iniciarPersonalizacao() {
+    criarGaleriaPublica();
     criarPainel();
 
-    await atualizarSite();
+    await atualizarAparencia();
+    await carregarGaleria();
 
-    if (await verificarAdmin()) {
+    if (await verificarAdmin(true)) {
       await carregarGaleriaAdmin();
     }
   }
@@ -707,9 +724,8 @@
   if (document.readyState === "loading") {
     document.addEventListener(
       "DOMContentLoaded",
-      () => {
-        iniciarPersonalizacao().catch(console.error);
-      }
+      () => iniciarPersonalizacao()
+        .catch(console.error)
     );
   } else {
     iniciarPersonalizacao().catch(console.error);
