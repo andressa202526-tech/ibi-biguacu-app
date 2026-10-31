@@ -1,7 +1,7 @@
 
 window.IBI_CONFIG = {
   supabaseUrl: "https://ftifvgazxlfuvkssgyih.supabase.co",
-  supabaseAnonKey: "COLE_AQUI_SUA_CHAVE_PUBLICAVEL",
+  supabaseAnonKey: "sb_publishable_nKF3pnad-M4kfHStesd3hw_wBIfPFwU",
   liveUrl: "",
   instagramUrl: "",
   address: "Biguaçu, SC"
